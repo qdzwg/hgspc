@@ -1,0 +1,221 @@
+mixin formatDate(date)
+  -var year=date.getFullYear()
+  -var month=date.getMonth()+1
+  -var day=date.getDate()
+  =year+'-'+(month<10?'0'+month:month)+'-'+(day<10?'0'+day:day)
+
+mixin getModule(m)
+  -var _m='景区'
+  -var _c='icon-iconfont-menpiao'
+  case m
+    when 'hotel'
+      -_m='酒店'
+      -_c='icon-iconfont-jiudian'
+    when 'amuse'
+      -_m='娱乐'
+      -_c='icon-iconfont-amuse'
+    when 'combo'
+      -_m='自由行'
+      -_c='icon-iconfont-ziyouxing'
+    when 'goods'
+      -_m='商品'
+      -_c='icon-iconfont-shouji3'
+    when 'repast'
+      -_m='餐饮'
+      -_c='icon-iconfont-canting'
+    when 'traffic'
+      -_m='交通'
+      -_c='icon-iconfont-gongjiao'
+  i(class='font-icon mold-type '+_c)
+  =_m
+
+mixin payStatus(m)
+  -var _m='其他'
+  case m
+    when 0
+      -_m='待支付'
+    when 1
+      -_m='已支付'
+    when 2
+      -_m='已评论'
+    when 3
+      -_m='待评论'
+    when 13
+      -_m='退款中'
+    when 12
+      -_m='已退款'
+    when 14
+      -_m='待审核'
+    when 15
+      -_m='退款失败'
+    when 6
+      -_m='已发货'
+    when 7
+      -_m='已过期'
+    when 8
+      -_m='待确认'
+    when 9
+      -_m='已确认'
+    when 10
+      -_m='确认失败'
+    when 11
+      -_m='已取消'
+  =_m
+
+mixin strcut(str,num)
+  -if(str)
+    - if(str.length>num)
+      = str.substr(0, num) + "..."
+    -else
+      = str
+
+mixin strcutTime(str,num)
+  -if(str)
+    - if(str.length>num)
+      = str.substr(0, num)
+    -else
+      = str
+
+mixin moduleShow(module)
+  case module
+    when "ticket"
+      ='门票'
+    when "hotel"
+      ='酒店'
+    when "combo"
+      ='自由行'
+    when "repast"
+      ='美食'
+    when "shop"
+      ='商品'
+    when "strategy"
+      ='攻略'
+
+
+mixin place(module,type)
+  .cur-location
+    a.locat-home(href='/') 首页
+    |  >
+    if type === 'list'
+      span
+        +moduleShow(module)
+        |列表
+    if type === 'detail'
+      a(href='/list/'+module)
+        +moduleShow(module)
+        |列表
+      |  >
+      span
+        +moduleShow(module)
+        |详情
+    if type === 'order'
+      a(href='/list/' + module)
+        +moduleShow(module)
+        |列表
+      |  >
+      span
+        +moduleShow(module)
+        |下单
+    if type==='pay'
+      a(href='/list/' + module)
+        +moduleShow(module)
+        | 列表
+      |  >
+      span
+        +moduleShow(module)
+        | 支付
+
+mixin rightInfo(data)
+  .list-r.type0
+    .list-r-01
+      .r-item-tit
+        h3 热门推荐
+      ul
+        each item in data.rows
+          li
+            a.r-item-img(href=item.url)
+              img(src=item.mig, alt='')
+            .r-item-info
+              h4.r-item-title
+                a(href=item.url)=item.name
+                  br
+              p.r-item-price
+                span.fr 已售#{item.sale_num}
+                i.rmb ¥
+                em=item.price
+
+// 首页快捷栏
+mixin fastbar()
+  // 右侧快速导航栏
+  .fast-bar
+    .fast-li
+      i.icon-fast2
+      h5 客服
+      .telbox 0851-86889691
+    .fast-li
+      i.icon-fast3
+      h5 微信
+      .qrbox
+        img(src='/images/index/fixbtn-qr_03.jpg', alt='wxqrcode')
+    .fast-li
+      i.icon-fast4
+      h5 APP
+      .qrbox
+        img(src='/images/index/fixbtn-qr_05.jpg', alt='wxqrcode')
+    #toTop.fast-li(style='display: block;')
+      i.icon-fast5
+      h5 顶部
+  script.
+      $(window).scroll(function () {
+          if ($(this).scrollTop() != 0) {
+              $('#toTop').fadeIn();
+          }else {
+              $('#toTop').fadeOut();
+          }
+      });
+      $('#toTop').click(function () {
+          $('body,html').animate({scrollTop: 0}, 200);
+      });
+
+      $(function () {
+          setTimeout(function () {
+              var iframe = document.getElementById('qidian_wpa_9');
+              if ($(iframe).size() > 0) {
+                  var tar = $(iframe.contentWindow.document.body).find('.wpa-container.theme-1');
+                  tar.css({
+                      'width': '61px',
+                      'height': '71px',
+                      'background-color': '#f2f1f1',
+                      'position': 'relative',
+                      'margin-bottom': '1px',
+                      'border': '0'
+                  }).hover(function () {
+                      $(this).css({
+                          'background-color': '#006ab8'
+                      }).find('.btn-text').css({
+                          'color': '#fff'
+                      })
+                  }, function () {
+                      $(this).css({
+                          'background-color': '#f2f1f1'
+                      }).find('.btn-text').css({
+                          'color': '#666'
+                      })
+                  }).find('.icon-qq').css({
+                      'width': '40px',
+                      'height': '50px',
+                      'margin': '0 auto',
+                      'background-image': 'url(/images/index/ico-right-slide3.png)',
+                      'background-position': '-10px -240px',
+                      'position': 'relative',
+                      'top': '0',
+                      'left': '0'
+                  }).end().find('.btn-text').text('QQ').css({
+                      'top': '-5px',
+                      'font-size': '14px',
+                      'color': '#666'
+                  }).end();
+              }
+          }, 600);
+      });
+  script(src="//wp.qiye.qq.com/qidian/2852133577/7e50f2789a044498cf2c641c4cdae6a9" charset="utf-8",type='text/javascript')

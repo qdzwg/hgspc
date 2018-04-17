@@ -1,0 +1,78 @@
+// 头部开始
+.header
+    .top.clearfix
+        .top-left
+            h1.logo
+                a(href='/')
+                    img(src='/images/common/logo.png')
+            span
+        .top-right.clearfix
+            .top-login
+                if(!userinfo)
+                    a(href='/login')
+                        i.top-icon.icon-logina
+                        | 登录
+                    | |
+                    a.reg(href='/register') 注册
+                else
+                    a.username(href='/member/info')
+                        i.top-icon.icon-login
+                        | #{userinfo.loginName}
+                    a.loginOut(href="javascript:;") 退出登录
+            span.tui.clearfix
+                a.sst(href='https://hgsjq.alitrip.com/index.htm?spm=a1z10.1-b.w5002-15686619862.2.fJcucX',target='_blank')
+                    img(src='/images/index/tmall.jpg')
+                    br
+                    | 黄果树旗舰店
+                    //.fl.tmall
+                    //    p.fz14 黄果树旗舰店
+                    //    p Alitrip
+                a.gqt(href='http://gzzhxc.com/',target="_blank")
+                    img(src='/images/index/mlxc.png')
+                //a.cart(href='/cart',title='购物车')
+    .menu
+        ul.clearfix(data-module=module)
+            li(class=module=='index'?'on':'')
+                a(href='/') 首页
+            li(class=module=='ticket'&&!pageType?'on':'')
+                a(href='/list/ticket') 景点门票
+            li(class=module=='hotel'&&!pageType?'on':'')
+                a(href='/list/hotel') 度假酒店
+            //li(class=module=='gty'?'on':'')
+            //    a(href='/list/gty') 跟团游
+            //li(class=module == 'rentCar' ? 'on' : '')
+            //    a(href='/list/rentCar') 租车
+            //li(class=module=='repast'&&!pageType?'on':'')
+            //    a(href='/list/repast') 美食
+            //li(class=module == 'shop' ? 'on' : '')
+            //    a(href='/list/shop') 特产
+            //li(class=pageType?'on':'')
+            //    a(href='/list/hotel?pageType=global') 全域游
+            li(class=module=='combo'?'on':'')
+                a(href='/list/combo')
+                    i.top-icon.hot
+                    span 自由行
+            //li(class=module == 'custom' ? 'on' : '')
+            //    a(href='/customized') 私人定制
+            li(class=module == 'strategy' ? 'on' : '')
+                a(href='/list/strategy') 旅游攻略
+            //li(class=module=='news'||module=='photo'?'on':'')
+            //    a(href='javascript:void(0)')
+            //        | 多彩贵州
+            //        i.menu-arrow-down
+            //    dl
+            //        dd(class=module == 'news' ? 'on' : '')
+            //            a(href='/') 新闻
+            //
+            //        dd(class=module=='photo'?'on':'')
+            //            a(href='/list/photo') 相册
+            //        dd(class=module==''?'on':'')
+            //            a(href='/list/news') 民俗民风
+            //li(class=module == 'activity' ? 'on' : '')
+            //    a(href='/list/activity')
+            //        i.top-icon.new
+            //        span 活动中心
+            //li(class=(module == 'about' ? 'on' : ''||module == 'inte' ? 'on' : ''||module == 'company' ? 'on' : ''))
+            //    a(href='/about/100')
+            //        span 关于快行漫游
+// 头部结束

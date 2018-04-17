@@ -1,0 +1,57 @@
+// 底部开始
+.footer
+  .foot-icons
+    a.icon(href='http://www.weather.com.cn/weather1d/101260101.shtml',target='_blank')
+      i.icon-foot1
+      span 天气
+    a.icon(href='http://j.map.baidu.com/wdEdj',target='_blank')
+      i.icon-foot2
+      span 地图
+    a.icon(href='javaScript:void(0);')
+      i.icon-foot3
+      span 留言
+    a.icon(href='javaScript:void(0);')
+      i.icon-foot4
+      span 微信
+    a.icon(href='/info/2')
+      i.icon-foot5
+      span 帮助
+  .foot-nav
+    ul
+      li
+        a(href='/') 首页
+      li
+        a(href='/info/2') 帮助中心
+      li
+        a(href='/info/3') 常见问题
+      li
+        a(href='/info/4') 免责声明
+      li.foot-logo
+        h1
+          a(href='/')
+            img(src='/images/common/logo-footer.png', alt='')
+      li
+        a(href='/info/5') 服务条款
+      li
+        a(href='/info/6') 投诉建议
+      li
+        a(href='/info/7') 关于我们
+  .foot-info
+    p.mt30
+      span.tel 电话：0851-86889691
+      |  公司地址：贵州贵阳观山湖区黔灵山路321号世纪金源国际财富中心E栋17楼
+    p
+      | Copyright ©贵州黄果树智慧旅游股份有限公司版权所有 黔ICP备13004362号
+      a(href='http://21910335.11315.com', logo_size='size1', logo_type='member', key='21910335', target='_blank')
+        script(type='text/javascript', src='http://static.11315.com/js/auth/auth.js')
+      | 技术支持：
+      a(href='http://www.sendinfo.com.cn', target='_blank') 浙江深大
+  script(type="text/javascript").
+      var _hmt = _hmt || [];
+      (function () {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?3d4e254eda864a9809947e062a2b55ce";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+// 底部结束

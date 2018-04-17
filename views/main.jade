@@ -1,0 +1,772 @@
+extends layout
+block stylesheets
+    link(rel="stylesheet", href="/stylesheets/index.css")
+block javascripts
+    script(src="/javascripts/jquery.SuperSlide.2.1.1.js")
+    script(src="/javascripts/jquery.jcountdown.js")
+    script(src="/javascripts/public.js")
+    script(src="/javascripts/list.js")
+    script(src="/javascripts/main/index.js")
+    script.
+        var module = '#{module}'
+    //    var baseUrl_index = '#{baseUrl}';
+
+
+block content
+    // tab切换开始
+    .change
+        .tab
+            .tab-box
+                .slideTxtBox
+                    .hd
+                        ul
+                            li.on
+                                i.font-icon &#xe602;
+                                span 景点门票
+                            li
+                                i.font-icon &#xe601;
+                                span 酒店
+                            //li
+                            //    i.font-icon &#xe602;
+                            //   span 跟团游
+                            li
+                                i.font-icon &#xe603;
+                                span 自由行
+                    .bd
+                        ul(style='display: block; padding: 15px;')
+                            // 嵌套内切换开始
+                            .slideTxtBox2
+                                .hd2
+                                    ul
+                                        li.on
+                                            i.tabon
+                                            | 门票
+                                .bd2
+                                    ul(style='display: block')
+                                        div
+                                            .ticketForm
+                                                .clearfix
+                                                    label 目的地
+                                                    input(type='text',placeholder='黄果树瀑布').t-text
+                                                .btn(style="overflow:hidden")
+                                                    a.tss-btn.hss-btn(data-type='ticket') 搜 索
+                                            .hot-tj(data-type="ticket")
+                                                p.hot-city 蜗牛推荐：
+                                                p
+                                                    each item,index in data[1].data[0].list
+                                                        -console.log(index)
+                                                        if(index>=0 && index<10)
+                                                            a(href="javascript:void(0)" data-labelid=item.id) #{item.name}
+                                                    a(href='/list/ticket') 更多 ∨
+                                                p.hot-city 热搜主题：
+                                                p.hotScience
+                                                    a(href='javascript:void(0);') 黄果树
+                                                    a(href='javascript:void(0);') 黄果树瀑布
+                                                    a(href='javascript:void(0);') 龙宫
+                                                    a(href='javascript:void(0);') 西江
+                                                    a(href='javascript:void(0);') 青岩古镇
+                                                    a(href='javascript:void(0);') 湿地公园
+                                                    a(href='/list/ticket') 更多 ∨
+                            // 嵌套内切换结束
+                        ul(style='padding: 15px;')
+                            // 嵌套内切换开始
+                            .slideTxtBox2
+                                .hd2
+                                    ul
+                                        li.on
+                                            i.tabon
+                                            | 酒店
+                                .bd2
+                                    ul(style='display: block')
+                                        div
+                                            .ticketForm
+                                                .clearfix
+                                                    label 关键词
+                                                    input(type='text',placeholder='请输入地标/商圈/景点').h-text
+                                                .btn.mt20.clearfix
+                                                    a.hss-btn(data-type='hotel') 搜 索
+                                                    //a(href='#') 地图搜索
+                                            .hot-tj(data-type="hotel")
+                                                p.hot-city 热门分类：
+                                                p
+                                                    each item,index in data[2].data[0].list
+                                                        if(index>=0 && index<10)
+                                                            a(href="javascript:void(0)" data-labelid=item.id) #{item.name}
+                                                    a(href='/list/hotel') 更多 ∨
+                        //ul(style='padding: 15px;')
+                        //    // 嵌套内切换开始
+                        //    .slideTxtBox2
+                        //        .hd2
+                        //            ul
+                        //                li.on
+                        //                    i.tabon
+                        //                    | 跟团游
+                        //        .bd2
+                        //            ul(style='display: block')
+                        //                div
+                        //                    .ticketForm
+                        //                        .clearfix
+                        //                            label 关键词
+                        //                            input(type='text',placeholder='请输入地标/商圈/景点').h-text
+                        //                        .btn.mt20.clearfix
+                        //                            a.hss-btn(data-type='gty') 搜 索
+                        //                            //-a(href='#') 地图搜索
+                        //                    .hot-tj
+                        //                        p.hot-city 热门分类：
+                        //                        p
+                        //
+                        //                            a(href="/list/gty?") cc
+                        //                            a(href='/list/gty') 更多 ∨
+                        ul(style='padding: 15px;')
+                            // 嵌套内切换开始
+                            .slideTxtBox2
+                                .hd2
+                                    ul
+                                        li.on
+                                            i.tabon
+                                            | 自由行
+                                .bd2
+                                    ul(style='display: block')
+                                        div
+                                            .ticketForm
+                                                .clearfix
+                                                    label 关键词
+                                                    input(type='text',placeholder='请输入地标/商圈/景点').h-text
+                                                .btn.mt20.clearfix
+                                                    a.hss-btn(data-type='combo') 搜 索
+                                                    //a(href='#') 地图搜索
+                                            .hot-tj(data-type="combo")
+                                                p.hot-city 热门分类：
+                                                p
+                                                    each item,index in data[3].data[0].list
+                                                        if(index>=0 && index<10)
+                                                            a(href="javascript:void(0)" data-labelid=item.id) #{item.name}
+                                                    a(href='/list/combo') 更多 ∨
+                script(type='text/javascript').
+                    $(".slideTxtBox").slide({"titCell": ".hd li", "mainCell": ".bd"});
+    // tab切换结束
+    // 轮播图开始
+    .slideBox
+        .hd
+            ul
+
+        .bd
+            ul
+                each item in data[0].data.pc_head_carousel
+                    li
+                        a(href=item.url)
+                            img(src=item.mig)
+    script(type='text/javascript').
+        $(".slideBox").slide({mainCell:".bd ul",titCell:'.hd ul',autoPage:'<li></li>',autoPlay:5000});
+    // 轮播图结束
+    .content_box
+        // 左侧固定
+        #stairslist.stairslist(style='margin-top: -120px;')
+            ul
+                li.current
+                    a(href='#qiang')
+                        i.stairslist-icon
+                        | 抢
+                li
+                    a(href='#wan')
+                        i.stairslist-icon
+                        | 玩
+                li
+                    a(href='#zhu')
+                        i.stairslist-icon
+                        | 住
+                //li
+                //    a(href='#you')
+                //        i.stairslist-icon
+                //        | 游
+                li
+                    a(href='#xing')
+                        i.stairslist-icon
+                        | 行
+                //li
+                //    a(href='#chi')
+                //        i.stairslist-icon
+                //        | 吃
+                //li
+                //    a(href='#mai')
+                //        i.stairslist-icon
+                //        | 买
+        // 左侧固定
+        // 限时优惠开始
+        .xsth-con
+            .xsth
+                #qiang.xsth-box.clearfix.detail-moudle
+                    .cata-tit
+                        p.cata-entit TIME LIMIT
+                        p
+                            span.cata-entit2 SALE
+                            span.cata-cntit 限时特惠
+                    .cata-list(style="display:none")
+                        ul.cata-list-item.clearfix
+                            li(data-filter="")
+                                a(href="/list/ticket?") 限时特惠1
+                ul
+                    li
+                        .picScroll
+                            .bd
+                                a.prev(href='javascript:void(0)')
+                                a.next(href='javascript:void(0)')
+                                .scrollWrap
+                                    ul.picList
+                                        each item in data[0].data.pc_limit_sale
+                                            - var date = item.deadline, timestramp = Date.parse(new Date(date));
+                                            li
+                                                a.pic(href=item.url)
+                                                    img(src=item.img)
+                                                    .piclist-tit
+                                                        span
+                                                            | #{item.title}
+                                                            i.top-icon.hot
+                                                    p.piclist-info
+                                                    p.price
+                                                        span.xj
+                                                            | ¥
+                                                            em #{item.price}
+                                                        span.countdown(data-countdown=timestramp)
+
+
+        // 限时优惠结束
+        // 景区门票开始
+        .ticket-con
+            .ticket
+                #wan.xsth-box.clearfix.detail-moudle
+                    .cata-tit
+                        p.cata-entit SCENIC SPOT
+                        p
+                            span.cata-entit2 TICKET
+                            span.cata-cntit 景区门票
+                    .cata-list
+                        ul.cata-list-item.clearfix
+                            each item,index in data[1].data[0].list
+                                if(index>=0 && index<10)
+                                    li(data-filter="labelid="+item.id)
+                                        a(href="/list/ticket?labelId="+item.id) #{item.name}
+                        a.more(href='/list/ticket') MORE>
+                ul
+                    li
+                        .resorts.clearfix
+                            .resorts-tab
+                                // 轮播图开始
+                                .slideBox3
+                                    .hd3
+                                        ul
+                                            each item in data[0].data.pc_tikcet_carousel
+                                                li
+                                    .bd3
+                                        ul
+                                            each item in data[0].data.pc_tikcet_carousel
+                                                li
+                                                    a(href=item.url)
+                                                        img(src=item.mig)
+                                script(type='text/javascript').
+                                    $(".slideBox3").slide({
+                                        "titCell": ".hd3 li",
+                                        "mainCell": ".bd3 ul",
+                                        autoPlay: true
+                                    });
+                                // 轮播图结束
+                            -var indexTicket = data[0].data.pc_ticket
+                            .resorts-slist
+                                ul
+                                    if indexTicket[0]
+                                        li.resorts-slist1
+                                            a.list-item(href=indexTicket[0].url)
+                                                .fangda.w191.h140
+                                                    img(src=indexTicket[0].mig)
+                                                p.slist-info
+                                                    span.slist-name=indexTicket[0].title
+                                                    //span.slist-price
+                                                    //    span
+                                                    //        | ￥
+                                                    //        em=indexTicket[0].price
+                                                    //    | 起
+                                    if indexTicket[1]
+                                        li.resorts-slist2
+                                            a.list-item(href=indexTicket[1].url)
+                                                .fangda.w191.h140
+                                                    img(src=indexTicket[1].mig)
+                                                p.slist-info
+                                                    span.slist-name=indexTicket[1].title
+                                    if indexTicket[2]
+                                        li.resorts-slist3
+                                            a.list-item(href=indexTicket[2].url)
+                                                .fangda.w191.h140
+                                                    img(src=indexTicket[2].mig)
+                                                p.slist-info
+                                                    span.slist-name=indexTicket[2].title
+                                    if indexTicket[3]
+                                        li.resorts-slist4
+                                            a.list-item(href=indexTicket[3].url)
+                                                .fangda.w191.h140
+                                                    img(src=indexTicket[3].mig)
+                                                p.slist-info
+                                                    span.slist-name=indexTicket[3].title
+                            .resorts-blist
+                                ul
+                                    if indexTicket[4]
+                                        li
+                                            .fangda.w336.h116
+                                                a(href=indexTicket[4].url)
+                                                    img(src=indexTicket[4].mig)
+                                                    p.blist-info.clearfix
+                                                        span.content
+                                                            span.blist-name=indexTicket[4].title
+                                                            //span.blist-price
+                                                            //    | ￥
+                                                            //    em=indexTicket[4].price
+                                                            //    | 起
+                                                        i.bg
+                                    if indexTicket[5]
+                                        li
+                                            .fangda.w336.h116
+                                                a(href=indexTicket[5].url)
+                                                    img(src=indexTicket[5].mig)
+                                                    p.blist-info.clearfix
+                                                        span.content
+                                                            span.blist-name=indexTicket[5].title
+                                                        i.bg
+                                    if indexTicket[6]
+                                        li
+                                            .fangda.w336.h116
+                                                a(href=indexTicket[6].url)
+                                                    img(src=indexTicket[6].mig)
+                                                    p.blist-info.clearfix
+                                                        span.content
+                                                            span.blist-name=indexTicket[6].title
+                                                        i.bg
+
+        // 景区门票结束
+        // 度假酒店开始
+        .hotels
+            .hotels-box
+                #zhu.xsth-box.clearfix.detail-moudle
+                    .cata-tit
+                        p.cata-entit HOLIDAY
+                        p
+                            span.cata-entit2 HOTEL
+                            span.cata-cntit 度假酒店
+                    .cata-list
+                        ul.cata-list-item.clearfix
+                            each item,index in data[2].data[0].list
+                                if(index>=0 && index<10)
+                                    li(data-filter="labelId="+item.id)
+                                        a(href="/list/hotel?labelId="+item.id) #{item.name}
+                        a.more(href='/list/hotel') MORE>
+                -var indexHotel = data[0].data.pc_hotel
+                ul.hotel-ul
+                    li
+                        .hotel-list.clearfix
+                            .hotel-list-items.clearfix
+                                .hotel-list-item1
+                                    if indexHotel[0]
+                                        .fangda.w280.h324
+                                            a(href=indexHotel[0].url)
+                                                img(src=indexHotel[0].mig)
+                                                p.hotel-list-info
+                                                    span.content
+                                                        span.hotel-list-name=indexHotel[0].title
+                                                        span.hotel-list-price
+                                                            em
+                                                                | ￥
+                                                                span.fs20 #{indexHotel[0].price}
+                                                            | 起
+                                                    i.bg
+                                    if indexHotel[1]
+                                        .mt26.fangda.w280.h182
+                                            a(href='#')
+                                                img(src='images/index/hotel2.jpg')
+                                                p.hotel-list-info
+                                                    span.content
+                                                        span.hotel-list-name 黄果树酒店
+                                                        span.hotel-list-price
+                                                            em
+                                                                | ￥
+                                                                span.fs20 78.0
+                                                            | 起
+                                                    i.bg
+                                .hotel-list-item2
+                                    if indexHotel[2]
+                                        .fangda.w280.h182
+                                            a(href='#')
+                                                img(src='images/index/hotel3.jpg')
+                                                p.hotel-list-info
+                                                    span.content
+                                                        span.hotel-list-name 黄果树酒店
+                                                        span.hotel-list-price
+                                                            em
+                                                                | ￥
+                                                                span.fs20 78.0
+                                                            | 起
+                                                    i.bg
+                                    if indexHotel[3]
+                                        .mt26.fangda.w280.h324
+                                            a(href='#')
+                                                img(src='images/index/hotel4.jpg')
+                                                p.hotel-list-info
+                                                    span.content
+                                                        span.hotel-list-name 黄果树酒店
+                                                        span.hotel-list-price
+                                                            em
+                                                                | ￥
+                                                                span.fs20 78.0
+                                                            | 起
+                                                    i.bg
+                            .hotel-list-items.ml28.clearfix
+                                .hotel-list-item1
+                                    if indexHotel[4]
+                                        .fangda.w280.h324
+                                            a(href='#')
+                                                img(src='images/index/hotel5.jpg')
+                                                p.hotel-list-info
+                                                    span.content
+                                                        span.hotel-list-name 黄果树酒店
+                                                        span.hotel-list-price
+                                                            em
+                                                                | ￥
+                                                                span.fs20 78.0
+                                                            | 起
+                                                    i.bg
+                                    if indexHotel[5]
+                                        .mt26.fangda.w280.h182
+                                            a(href='#')
+                                                img(src='images/index/hotel6.jpg')
+                                                p.hotel-list-info
+                                                    span.content
+                                                        span.hotel-list-name 黄果树酒店
+                                                        span.hotel-list-price
+                                                            em
+                                                                | ￥
+                                                                span.fs20 78.0
+                                                            | 起
+                                                    i.bg
+                                .hotel-list-item2
+                                    if indexHotel[6]
+                                        .fangda.w280.h182
+                                            a(href='#')
+                                                img(src='images/index/hotel7.jpg')
+                                                p.hotel-list-info
+                                                    span.content
+                                                        span.hotel-list-name 黄果树酒店
+                                                        span.hotel-list-price
+                                                            em
+                                                                | ￥
+                                                                span.fs20 78.0
+                                                            | 起
+                                                    i.bg
+                                    if indexHotel[7]
+                                        .mt26.fangda.w280.h324
+                                            a(href='#')
+                                                img(src='images/index/hotel8.jpg')
+                                                p.hotel-list-info
+                                                    span.content
+                                                        span.hotel-list-name 黄果树酒店
+                                                        span.hotel-list-price
+                                                            em
+                                                                | ￥
+                                                                span.fs20 78.0
+                                                            | 起
+                                                    i.bg
+        // 度假酒店结束
+        // 跟团游开始
+        //.group
+        //    .group-box
+        //        #you.xsth-box.clearfix.detail-moudle
+        //            .cata-tit
+        //                p.cata-entit TOURISM
+        //                p
+        //                    span.cata-entit2 GROUP
+        //                    span.cata-cntit 跟团游
+        //            .cata-list
+        //                ul.cata-list-item.clearfix
+        //                    li(data-filter=filter)
+        //                        a(href="/list/gty?") 跟团游
+        //                a.more(href='/list/gty') MORE>
+        //        ul.group-ul
+        //            li
+        // 跟团游结束
+        // 自由行开始
+        .free
+            .free-box
+                #xing.xsth-box.clearfix.detail-moudle
+                    .cata-tit
+                        p.cata-entit FREE
+                        p
+                            span.cata-entit2 LINE
+                            span.cata-cntit 自由行
+                    .cata-list
+                        ul.cata-list-item.clearfix
+                            each item,index in data[3].data[0].list
+                                if(index>=0 && index<10)
+                                    li(data-filter="labelId="+item.id)
+                                        a(href="/list/combo?labelId="+item.id) #{item.name}
+                        a.more(href='/list/line') MORE>
+                -var indexLine = data[0].data.pc_combo
+                ul.free-ul
+                    li.clearfix
+                        .free-left
+                            if indexLine[0]
+                                .free-item.clearfix
+                                    a.free-a1(href='')
+                                        .fangda.w388.h190
+                                            img(src=indexLine[0].mig)
+                                        p.free-info.clearfix
+                                            span.content
+                                                span.free-name #{indexLine[0].title}
+                                                span.free-price
+                                                    | ￥
+                                                    em.fs20 #{indexLine[0].price}
+                                                    | 起
+                                            i.bg
+                                    a.free-ssjg(href='')
+                                        i
+                                        p 山水景观
+                                    a.free-ztly(href='')
+                                        i
+                                        p 主题乐园
+                            .free-tehui
+                                if indexLine[1]
+                                    a(href='')
+                                        img(src=indexLine[1].mig)
+                                        p.free-info.clearfix
+                                            span
+                                            em=indexLine[1].title
+                                            i.bg
+                        .free-right
+                            ul
+                                if indexLine[2]
+                                    li
+                                        .fangda.w388.h190
+                                            a(href='')
+                                                img(src=indexLine[2].mig)
+                                                p.free-info.clearfix
+                                                    span.content
+                                                        span.free-name=indexLine[2].title
+                                                        span.free-price
+                                                            | ￥
+                                                            em.fs20=indexLine[2].price
+                                                            | 起
+                                                    i.bg
+                                if indexLine[3]
+                                    li.mt18
+                                        .fangda.w388.h190
+                                            a(href='')
+                                                img(src=indexLine[3].mig)
+                                                p.free-info.clearfix
+                                                    span.content
+                                                        span.free-name=indexLine[3].title
+                                                        span.free-price
+                                                            | ￥
+                                                            em.fs20=indexLine[3].price
+                                                            | 起
+                                                    i.bg
+        // 自由行结束
+        // 美食开始
+        //.group
+        //    .group-box
+        //        #chi.xsth-box.clearfix.detail-moudle
+        //            .cata-tit
+        //                p.cata-entit TOURISM
+        //                p
+        //                    span.cata-entit2 FOODS
+        //                    span.cata-cntit 美食
+        //            .cata-list.clearfix
+        //                ul.cata-list-item.clearfix
+        //                    each item,index in data[5].data[0].list
+        //                        if(index>=0 && index<10)
+        //                            li(data-filter="labelId="+item.id)
+        //                                a(href="/list/repast?labelId="+item.id) #{item.name}
+        //                a.more(href='/list/repast') MORE>
+        //        ul.group-ul
+        //            li
+        //                ol.clearfix
+        //                    each item in data[0].data.pc_food
+        //                        li
+        //                            .fangda.w380.h232
+        //                                a(href=item.url)
+        //                                    img(src=item.mig)
+        //                                    p.group-info.clearfix
+        //                                        span.content
+        //                                            span.group-name=item.title
+        //                                            span.group-price
+        //                                                | ¥
+        //                                                em.fs20=item.price
+        //                                                | 人/起
+        //                                        i.bg
+        // 美食结束
+        // 特产开始
+        //.group
+        //    .group-box
+        //        #mai.xsth-box.clearfix.detail-moudle
+        //            .cata-tit
+        //                p.cata-entit TOURISM
+        //                p
+        //                    span.cata-entit2 GOODS
+        //                    span.cata-cntit 特产
+        //            .cata-list
+        //                ul.cata-list-item.clearfix
+        //                    each item,index in data[4].data[0].list
+        //                        if(index >= 0 && index < 10)
+        //                            li(data-filter="labelId=" + item.id)
+        //                                a(href="/list/shop?labelId=" + item.id) #{item.name}
+        //                a.more(href='/list/shop') MORE>
+        //        ul.group-ul
+        //            li
+        //                ol.clearfix
+        //                    each item in data[0].data.pc_goods
+        //                        li
+        //                            .fangda.w380.h232
+        //                                a(href=item.url)
+        //                                    img(src=item.mig)
+        //                                    p.group-info.clearfix
+        //                                        span.content
+        //                                            span.group-name=item.title
+        //                                            span.group-price
+        //                                                | ¥
+        //                                                em.fs20=item.price
+        //                                                | 人/起
+        //                                        i.bg
+        // 特产结束
+        // 首页新闻开始
+        .index-news
+            .news-box.clearfix
+                .announcement
+                    .news-tit.clearfix
+                        i
+                        span 新闻公告
+                        //a(href='/list/news') MORE>
+                    ul
+                        each item in data[0].data.pc_news
+                            -var oldDate =item.createTime,pubDate = oldDate.substr(0,10);
+                            li
+                                a(href="/news/"+item.baseCode)
+                                    span.news-bt=item.title
+                                    em=pubDate
+                .raiders
+                    .news-tit.clearfix
+                        i
+                        span 游记攻略
+                        a(href='/list/strategy') MORE>
+                    ul.clearfix
+                        each item in data[0].data.pc_strategy
+                            -var sDate = item.createTime.substr(0,10);
+                            li
+                                a(href='/news/'+item.baseCode)
+                                    img(src=item.face_img)
+                                    .raiders-info
+                                        p.title=item.title
+                                        p.info=item.info
+                                        .date-wx.clearfix
+                                            span=sDate
+                                            em=item.viewNum
+                                            i
+        // 首页新闻结束
+        // 友情链接开始
+        .link
+            .link-box
+                .clearfix
+                    p.link-tit 友情链接：
+                    ul.clearfix
+                        each ietm in data[0].data.pc_friendlink
+                            li
+                                a(href=ietm.url,target='_blank')
+                                    img(src=ietm.img)
+                                    span.link-name=ietm.title
+            .i-gg
+                img(src='images/index/i-gg.jpg')
+            .our-info.clearfix
+                .bz
+                    .bz-tit.clearfix
+                        i
+                        span 购买指南
+                    .bz-info.clearfix
+                        span
+                            a(href='') 怎样购物
+                            br
+                            a(href='') 会员俱乐部
+                            br
+                            a(href='') 积分制度
+                            br
+                            a(href='') 优惠券介绍
+                            br
+                            a(href='') 订单状态说明
+                .bz.ydbz
+                    .bz-tit.clearfix
+                        i
+                        span 支付帮助
+                    .bz-info.clearfix
+                        span
+                            a(href='') 货到付款
+                            br
+                            a(href='') 在线支付
+                            br
+                            a(href='') 邮政汇款
+                            br
+                            a(href='') 银行转账
+                            br
+                            a(href='') 发票说明
+                .bz.aqzn
+                    .bz-tit.clearfix
+                        i
+                        span 配送方式
+                    .bz-info.clearfix
+                        span
+                            a(href='') 普通快递
+                            br
+                            a(href='') 门票配送
+                            br
+                            a(href='') 商品物流
+                .bz.bzh
+                    .bz-tit.clearfix
+                        i
+                        span 服务条款
+                    .bz-info.clearfix
+                        span
+                            a(href='') 售后服务政策
+                            br
+                            a(href='') 售后特色服务
+                            br
+                            a(href='') 退换货说明
+                            br
+                            a(href='') 联系客服
+        // 友情链接结束
+        // 底部固定活动栏开始
+        //.fix-btm
+        //    i.bg-fixbtm
+        //    .act-content
+        //        i.btm-close
+        //        .act-logo
+        //            img(src='images/index/ggt.png', alt='', width='747', height='134')
+        //        .act-qr
+        //            img(src='images/index/fixbtn-qr_03.jpg')
+        //        .act-img
+        //            span 每时每刻有惊喜
+        //            span 快行漫游官方微信
+        // 底部固定活动栏结束
+
+        include common/index
+        +fastbar
+        // 右侧快速导航栏
+        script(type='text/javascript').
+            $(function () {
+                $('.btm-close').click(function () {
+                    $('.fix-btm').hide();
+                });
+                $(".fangda img").hover(function () {
+                    $(this).stop(true, true).animate({
+                        "width": "110%",
+                        "height": "110%",
+                        "left": "-5%",
+                        "top": "-5%"
+                    }, 100);
+                }, function () {
+                    $(this).stop(true, true).animate({"width": "100%", "height": "100%", "left": "0", "top": "0"}, 100);
+                });
+            });
+            (function () {
+                dilogNav();
+            })()
